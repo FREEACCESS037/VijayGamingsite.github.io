@@ -4,8 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Support Vijay Kumar 💰</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
     body {
       font-family: "Poppins", sans-serif;
       height: 100vh;
@@ -18,11 +21,13 @@
       animation: gradientMove 15s ease infinite;
       color: white;
     }
+
     @keyframes gradientMove {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
     }
+
     .card {
       backdrop-filter: blur(15px);
       background: rgba(255, 255, 255, 0.1);
@@ -30,19 +35,23 @@
       box-shadow: 0 8px 30px rgba(0,0,0,0.3);
       padding: 40px 25px;
       text-align: center;
-      width: 330px;
+      width: 340px;
       animation: fadeIn 1s ease;
     }
+
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0); }
     }
+
     .card h1 {
       font-size: 26px;
       margin-bottom: 8px;
       text-shadow: 0 0 10px #00ffcc;
     }
+
     .card p { font-size: 15px; color: #eee; margin-bottom: 20px; }
+
     .qr {
       width: 230px;
       border-radius: 15px;
@@ -51,6 +60,7 @@
       transition: transform 0.3s ease;
     }
     .qr:hover { transform: scale(1.05); }
+
     input {
       width: 80%;
       padding: 12px;
@@ -61,27 +71,32 @@
       font-size: 17px;
       margin-top: 10px;
     }
-    button {
-      margin-top: 20px;
+
+    .btn {
+      margin-top: 15px;
       padding: 12px 30px;
       background: linear-gradient(90deg, #00ff99, #00bfff);
       border: none;
       border-radius: 12px;
-      font-size: 18px;
+      font-size: 17px;
       color: #000;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
+      width: 90%;
     }
-    button:hover {
+
+    .btn:hover {
       transform: scale(1.08);
       box-shadow: 0 0 20px #00ff99;
     }
+
     footer {
       margin-top: 25px;
       font-size: 13px;
       color: #ddd;
     }
+
     footer strong { color: #00ffcc; }
   </style>
 </head>
@@ -90,41 +105,46 @@
     <h1>Support Vijay Kumar 💰</h1>
     <p>Scan QR or enter an amount to fund instantly</p>
 
+    <!-- QR Code (Optional Image) -->
     <img src="upi_qr_no_amount_vk751010722839.png" alt="UPI QR Code" class="qr" />
 
-    <div>
-      <input type="number" id="amount" placeholder="Enter amount (₹)" />
-      <button onclick="payNow()">💸 Pay Now</button>
-    </div>
+    <!-- Amount Field -->
+    <input type="number" id="amount" placeholder="Enter amount (₹)" />
+
+    <!-- Buttons -->
+    <button class="btn" onclick="payNow('vk751010722839@oksbi')">💸 Pay via SBI</button>
+    <button class="btn" onclick="payNow('9025304424@superyes')">💰 Pay via SuperYes</button>
 
     <footer>
-      <p>UPI ID: <strong>vk751010722839@oksbi</strong></p>
+      <p>UPI IDs:<br>
+        <strong>vk751010722839@oksbi</strong><br>
+        <strong>9025304424@superyes</strong>
+      </p>
     </footer>
   </div>
 
   <script>
-    async function payNow() {
+    async function payNow(vpa) {
       const amount = document.getElementById("amount").value;
       if (!amount || amount <= 0) {
         alert("Please enter a valid amount!");
         return;
       }
-      const vpa = "vk751010722839@oksbi";
+
       const name = "Vijay Kumar";
-      const currency = "INR";
-      const upiLink = `upi://pay?pa=${vpa}&pn=${name}&am=${amount}&cu=${currency}`;
-      
+      const upiLink = `upi://pay?pa=${vpa}&pn=${name}&am=${amount}&cu=INR`;
+
       // Open UPI app
       window.location.href = upiLink;
 
-      // Send Gmail notification via Google Apps Script
+      // Send Gmail notification
       await fetch("https://script.google.com/macros/s/AKfycbwdIUj2RTfDwNk8PZ6djHmrTpNJUZvEDhw-Gnxh9EVh-Lkk7Bo7UzFSWALjehjlXDDppA/exec", {
         method: "POST",
         body: JSON.stringify({ amount, name, vpa }),
         headers: { "Content-Type": "application/json" },
       });
 
-      // Optional: show success message after few seconds
+      // Show success message
       setTimeout(() => {
         document.body.innerHTML = `
           <div style="text-align:center;padding:50px;color:white;font-family:Poppins;">
