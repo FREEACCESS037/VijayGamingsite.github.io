@@ -98,3 +98,26 @@ footer {
   border-top: 2px solid #00ff99;
   margin-top: 40px;
 }
+/* === VIDEO GALLERY === */
+.video-gallery {
+  margin-top: 40px;
+    display: flex;
+      flex-wrap: wrap;
+        justify-content: center;
+          gap: 20px;
+          }
+
+          .video-gallery iframe {
+            border: 3px solid #00ff99;
+              border-radius: 12px;
+                box-shadow: 0 0 20px rgba(0, 255, 153, 0.4);
+                  width: 360px;
+                    height: 215px;
+                    }
+
+                    @media (max-width: 768px) {
+                      .video-gallery iframe {
+                          width: 100%;
+                              height: auto;
+                                }
+                                }
