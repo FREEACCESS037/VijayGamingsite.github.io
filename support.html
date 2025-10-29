@@ -58,8 +58,13 @@
       margin: 20px auto;
       box-shadow: 0 0 20px rgba(0,255,200,0.3);
       transition: transform 0.3s ease;
+      cursor: pointer;
     }
-    .qr:hover { transform: scale(1.05); }
+
+    .qr:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px #00ffcc;
+    }
 
     input {
       width: 80%;
@@ -105,13 +110,15 @@
     <h1>Support Vijay Kumar 💰</h1>
     <p>Scan QR or enter an amount to fund instantly</p>
 
-    <!-- QR Code (Optional Image) -->
-    <img src="https://i.ibb.co/jP1wgx21/upi-qr.png" alt="UPI QR Code" class="qr" />
+    <!-- ✅ Clickable QR Code -->
+    <a href="upi://pay?pa=vk751010722839@oksbi&pn=Vijay%20Kumar&cu=INR" id="upiLink">
+      <img src="https://i.ibb.co/jP1wgx21/upi-qr.png" alt="UPI QR Code" class="qr" />
+    </a>
 
-    <!-- Amount Field -->
+    <!-- Amount Input -->
     <input type="number" id="amount" placeholder="Enter amount (₹)" />
 
-    <!-- Buttons -->
+    <!-- Pay Buttons -->
     <button class="btn" onclick="payNow('vk751010722839@oksbi')">💸 Pay via SBI</button>
     <button class="btn" onclick="payNow('9025304424@superyes')">💰 Pay via SuperYes</button>
 
@@ -137,14 +144,14 @@
       // Open UPI app
       window.location.href = upiLink;
 
-      // Send Gmail notification
-      await fetch("https://script.google.com/macros/s/AKfycbwdIUj2RTfDwNk8PZ6djHmrTpNJUZvEDhw-Gnxh9EVh-Lkk7Bo7UzFSWALjehjlXDDppA/exec", {
+      // Send Gmail notification (optional - replace YOUR_SCRIPT_URL_HERE)
+      await fetch("YOUR_SCRIPT_URL_HERE", {
         method: "POST",
         body: JSON.stringify({ amount, name, vpa }),
         headers: { "Content-Type": "application/json" },
-      });
+      }).catch(err => console.log("Mail send skipped", err));
 
-      // Show success message
+      // Success message after redirect
       setTimeout(() => {
         document.body.innerHTML = `
           <div style="text-align:center;padding:50px;color:white;font-family:Poppins;">
